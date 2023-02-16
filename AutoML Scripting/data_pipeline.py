@@ -3,11 +3,12 @@ from pycaret.regression import *
 
 class DataPreprocessing:
     """
-      Module takes in a pandas dataframe object and readies it for AutoML.
+      Module takes in 2 pandas dataframe objects, merge them and readies a processed dataframe for AutoML.
     """
 
-    def __init__(self, housing_transactions:pd.Dataframe):
+    def __init__(self, housing_transactions:pd.Dataframe, postal_code:pd.Dataframe):
         self.housing_transactions = housing_transactions
+        self.postal_code = postal_code
 
     def run_basic_cleaning(self):
 
@@ -59,6 +60,10 @@ class DataPreprocessing:
                 return 1
 
         df['is_leasehold'] = df.tenure.apply(is_leasehold)
+        
+        # Combine the lat lon file
+        postal_codes.sort_values(by='postal_code')
+        df = pd.merge(df, postal_codes, on='postal_code', how='left')
 
         return df
       
