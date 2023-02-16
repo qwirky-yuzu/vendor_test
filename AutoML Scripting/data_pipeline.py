@@ -62,8 +62,8 @@ class DataPreprocessing:
         df['is_leasehold'] = df.tenure.apply(is_leasehold)
         
         # Combine the lat lon file
-        postal_codes.sort_values(by='postal_code')
-        df = pd.merge(df, postal_codes, on='postal_code', how='left')
+        self.postal_code.sort_values(by='postal_code')
+        df = pd.merge(df, self.postal_codes, on='postal_code', how='left')
 
         return df
       
