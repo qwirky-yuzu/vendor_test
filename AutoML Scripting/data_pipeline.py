@@ -6,7 +6,7 @@ class DataPreprocessing:
       Module takes in 2 pandas dataframe objects, merge them and readies a processed dataframe for AutoML.
     """
 
-    def __init__(self, housing_transactions:pd.Dataframe, postal_code:pd.Dataframe):
+    def __init__(self, housing_transactions, postal_code):
         self.housing_transactions = housing_transactions
         self.postal_code = postal_code
 
@@ -63,7 +63,7 @@ class DataPreprocessing:
         
         # Combine the lat lon file
         self.postal_code.sort_values(by='postal_code')
-        df = pd.merge(df, self.postal_codes, on='postal_code', how='left')
+        df = pd.merge(df, self.postal_code, on='postal_code', how='left')
 
         return df
       
